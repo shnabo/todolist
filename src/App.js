@@ -8,13 +8,27 @@ class MyList extends Component {
   constructor (props) {
     super()
     this.state = {
-      toDoItemArray: props.theList
+      toDoItemArray: props.theList,
+      newItem: ''
     }
   }
   clearList (e) {
+    console.log("Clearing List");
     this.setState({
       toDoItemArray: []
     });
+  }
+
+  newItemChange (e) {
+    this.setState ({
+      newItem: e.target.value
+    });
+  }
+  addItem (e) {
+    e.preventDefault();
+    const toDos = this.state.toDoItemArray;
+    toDos.push(this.state.newItem);
+    this.setState({toDoItemArray: toDos, newItem: ""});
   }
 
   render() {
@@ -29,7 +43,15 @@ class MyList extends Component {
         <ul>
           {todoItems}
         </ul>
-        <button onClick={(e) => this.clearList(e)}> Finished the list! </button>
+        <form>
+          <input type = "text"
+            placeholder = "Type an item here"
+            onChange = {(e)=> this.newItemChange(e)}
+            value = {this.state.newItem}
+          />
+          <button onClic = {(e) => this.addItem(e)} >Add It! DO IT NOW! </button>
+        </form>
+        <button onClick= {(e) => this.clearList(e)}> Finished the list! </button>
       </div>
     );
   }
