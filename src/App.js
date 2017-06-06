@@ -5,6 +5,18 @@ import ListItem from './ListItem.js';
 
 
 class MyList extends Component {
+  constructor (props) {
+    super()
+    this.state = {
+      toDoItemArray: props.theList
+    }
+  }
+  clearList (e) {
+    this.setState({
+      toDoItemArray: []
+    });
+  }
+
   render() {
 
     let todoItems = this.props.theList.map( (item, index) => (
@@ -13,10 +25,11 @@ class MyList extends Component {
 
     return (
       <div>
-        <h1> Things I should stop procrastinating:</h1>
+        <h1> Things I should stopp procrastinating:</h1>
         <ul>
           {todoItems}
         </ul>
+        <button onClick={(e) => this.clearList(e)}> Finished the list! </button>
       </div>
     );
   }
